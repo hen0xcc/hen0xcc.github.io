@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Frame from '../../components/Frame.astro';
+
+const labs = (await getCollection('labs', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Layout title="Labs" description="Laboratorios de ciberseguridad paso a paso y con resultados comprobables.">
+  <Frame title="LABS / HAZLO TÚ MISMO">
+    <p class="hx-kicker">Prerrequisitos · Ejecución · Detección · Evidencias · Limpieza</p>
+    {labs.length ? <div class="hx-stack">{labs.map((lab) => (
+      <a class="hx-entry" href={`/labs/${lab.id}/`}>
+        <strong>{lab.data.title}</strong>
+        <span>{lab.data.description}</span>
+        <small>{lab.data.level || 'Laboratorio'}{lab.data.duration ? ` · ${lab.data.duration}` : ''}</small>
+      </a>
+    ))}</div> : <p>Próximamente: laboratorios reproducibles y documentados.</p>}
+  </Frame>
+</Layout>

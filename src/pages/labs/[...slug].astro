@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Frame from '../../components/Frame.astro';
+
+export async function getStaticPaths() {
+  const labs = await getCollection('labs', ({ data }) => !data.draft);
+  return labs.map((lab) => ({ params: { slug: lab.id }, props: lab }));
+}
+const lab = Astro.props;
+const { Content, headings } = await render(lab);
+const { title, description, pubDate, updatedDate, heroImage, tags, level, duration, objective } = lab.data;
+const date = pubDate.toISOString().slice(0, 10);
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+<Layout title={title} description={description}>
+  <article>
+    <Frame title="LAB / PRÁCTICA REPRODUCIBLE">
+      <h1 class="post-title">{title}</h1>
+      <p class="hx-lead">{description}</p>
+      <p class="post-meta">FECHA: <time datetime={date}>{date}</time>
+        {level && ` // NIVEL: ${level}`}
+        {duration && ` // DURACIÓN ESTIMADA: ${duration}`}
+        {updatedDate && ` // ACTUALIZADO: ${updatedDate.toISOString().slice(0, 10)}`}
+      </p>
+      {objective && <p class="hx-objective"><strong>AL TERMINAR PODRÁS:</strong> {objective}</p>}
+      {tags.length > 0 && <p class="hx-kicker">TEMAS: {tags.map((tag) => <span>[{tag}] </span>)}</p>}
+      {heroImage && <Image class="post-hero" src={heroImage} alt="" width={1280} loading="eager" />}
+      {toc.length > 1 && <nav class="hx-toc" aria-label="Índice del laboratorio">
+        <strong>IR A UNA SECCIÓN</strong>
+        <ol>{toc.map((h) => <li class:list={['hx-toc-item', {'hx-toc-sub': h.depth === 3}]}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+      </nav>}
+      <div class="prose hx-prose"><Content /></div>
+    </Frame>
+    <nav class="post-nav"><a class="menu-item" href="/labs/"><span class="mi-marker">▪ ‹</span><span class="mi-title">VOLVER A LABS</span></a></nav>
+  </article>
+</Layout>

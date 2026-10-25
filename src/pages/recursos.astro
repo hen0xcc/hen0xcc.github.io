@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Frame from '../components/Frame.astro';
+const resources = [
+  { title:'MIT // Tech Model Railroad Club', purpose:'Historia temprana del hacking, experimentación y computación en MIT', href:'https://tmrc.mit.edu/old/history/index.html' },
+  { title:'Phrack', purpose:'Revista hacker y archivo de artículos históricos', href:'https://phrack.org/' },
+  { title:'Phrack Archives', purpose:'Consulta de números históricos de la revista', href:'https://archives.phrack.org/issues/' },
+  { title:'Chaos Computer Club', purpose:'Historia, ética hacker, privacidad y cultura técnica europea', href:'https://www.ccc.de/en/club' },
+  { title:'DEF CON // FAQ histórica', purpose:'Orígenes de DEF CON y desarrollo de la comunidad', href:'https://defcon.outel.org/defcon31/dc31-consolidated_page_split.html' },
+  { title:'OWASP Foundation', purpose:'Historia y proyectos comunitarios de seguridad de aplicaciones', href:'https://owasp.org/about/' },
+];
+---
+<Layout title="RECURSOS HISTÓRICOS" description="Biblioteca de fuentes y recursos sobre la historia hacker.">
+  <Frame title="RECURSOS // ARCHIVOS HISTÓRICOS">
+    <p style="margin-bottom:16px;">Fuentes para explorar la cultura hacker y la evolución de la seguridad informática. Los enlaces se abren en una pestaña nueva.</p>
+    <div class="menu-list">
+      {resources.map((resource,i) => (
+        <a class="menu-item" href={resource.href} target="_blank" rel="noopener noreferrer">
+          <span class="mi-marker" aria-hidden="true">[{String(i+1).padStart(2,'0')}]</span>
+          <span class="mi-title"><strong>{resource.title}</strong> // {resource.purpose}</span>
+          <span class="mi-arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </Frame>
+  <Frame title="VOLVER AL SITIO">
+    <nav class="menu-list">
+      <a class="menu-item" href="/hacker-culture/"><span class="mi-marker">‹</span><span class="mi-title">HISTORIA HACKER</span></a>
+      <a class="menu-item" href="/temas/"><span class="mi-marker">›</span><span class="mi-title">INVESTIGACIONES POR TEMA</span></a>
+    </nav>
+  </Frame>
+</Layout>

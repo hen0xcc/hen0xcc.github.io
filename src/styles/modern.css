@@ -1,0 +1,150 @@
+/* HEN0XCC // MODERN RESEARCH TERMINAL
+   Añadir mediante import '../styles/modern.css' después de terminal.css
+   Conserva el tema clásico verde con la tecla T.
+*/
+:root,
+:root[data-theme='amber'] {
+  --bg: #080c10;
+  --bg-deep: #101820;
+  --fg: #48e8a0;
+  --fg-bright: #f1f5f9;
+  --fg-dim: #90a6b3;
+  --glow: transparent;
+  --img-filter: none;
+}
+
+/* Tema retro: disponible con THEME o tecla T */
+:root[data-theme='green'] {
+  --bg: #000000;
+  --bg-deep: #070f0a;
+  --fg: #4af66c;
+  --fg-bright: #a8ffbb;
+  --fg-dim: #55ae6c;
+  --glow: rgba(74, 246, 108, 0.14);
+  --img-filter: none;
+}
+
+/* Sin efectos CRT o pantalla de arranque en modo editorial */
+body::before,
+body::after,
+.crt-boot { display: none !important; }
+.crt { animation: none !important; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  letter-spacing: normal;
+  color: #dce5ea;
+  background: var(--bg);
+  background-image: none;
+  text-shadow: none;
+}
+
+.container { max-width: 1050px; }
+main { margin-top: 36px; }
+
+.logo,
+.frame,
+.frame-body,
+.prose pre,
+.prose img,
+.post-hero,
+.about-photo { box-shadow: none; }
+
+.logo {
+  border: 1px solid #2e6050;
+  border-radius: 10px;
+  box-shadow: none;
+  min-width: 95px;
+}
+
+.h-line-top,
+.h-nav,
+.logo,
+.frame-title,
+.t-colophon,
+.boot,
+.hack {
+  font-family: Consolas, 'Cascadia Code', 'Courier New', monospace;
+}
+
+.h-line-bottom { border-color: #25353d; color: var(--fg-dim); }
+.h-line-top { border-color: #25353d; }
+
+.frame {
+  border: 1px solid #283942;
+  border-radius: 12px;
+  padding: 0;
+  margin: 42px 0;
+  background: #101820;
+}
+.frame-body { border: none; padding: 28px; }
+.frame-title {
+  color: var(--fg);
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  background: var(--bg);
+}
+
+.menu-item {
+  border: 1px solid #253740;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+.menu-item:hover,
+.menu-item:focus-visible,
+.h-nav a:hover,
+.h-nav a[aria-current='page'],
+.nav-theme:hover,
+.nav-sound:hover {
+  background: #16372b;
+  color: #ffffff;
+  text-shadow: none;
+}
+.menu-item:hover .mi-date,
+.menu-item:focus-visible .mi-date { color: #b4c6d0; }
+
+.post-title {
+  font-size: clamp(1.65rem, 3vw, 2.5rem);
+  line-height: 1.25;
+  text-transform: none;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.prose { color: #dce5ea; line-height: 1.8; }
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #f1f5f9;
+  text-transform: none;
+  font-weight: 700;
+}
+.prose h2::before,
+.prose h2::after,
+.prose h3::before { content: none; }
+.prose a { color: #55e7aa; }
+.prose a:hover { background: #16372b; color: #ffffff; }
+.prose pre,
+.prose code { font-family: Consolas, 'Cascadia Code', monospace; }
+.prose pre { background: #0b1218; border: 1px solid #294138; border-radius: 8px; }
+.prose blockquote { background: #111f20; border-left: 3px solid #48e8a0; }
+.prose th { text-transform: none; }
+
+/* Retro alternativo: vuelve a usar tipografía mono y verde */
+:root[data-theme='green'] body {
+  color: #a8ffbb;
+  font-family: Consolas, 'Cascadia Code', monospace;
+}
+:root[data-theme='green'] .prose { color: #a8ffbb; }
+:root[data-theme='green'] .post-title,
+:root[data-theme='green'] .prose h2,
+:root[data-theme='green'] .prose h3,
+:root[data-theme='green'] .prose h4 { color: #a8ffbb; }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .frame-body { padding: 18px 14px; }
+  .container { padding-left: 14px; padding-right: 14px; }
+}

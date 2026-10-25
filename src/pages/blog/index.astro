@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Frame from '../../components/Frame.astro';
+import PostItem from '../../components/PostItem.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+<Layout title="Blog" description="Investigaciones, guías y análisis de seguridad ofensiva y defensiva.">
+  <Frame title="BLOG / PUBLICACIONES">
+    <p class="hx-kicker">Qué ocurrió · Cómo funciona · Qué debe hacer el SOC · Controles · Fuentes</p>
+    {posts.length ? <div class="menu-list">{posts.map((post) => <PostItem post={post} />)}</div>
+      : <p>Aún no hay publicaciones. Los borradores no se muestran en el sitio público.</p>}
+  </Frame>
+</Layout>

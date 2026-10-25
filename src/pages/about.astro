@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Frame from '../components/Frame.astro';
+---
+<Layout title="Whoami" description="Sobre hen0xcc y su enfoque de investigación en ciberseguridad.">
+  <Frame title="WHOAMI / PERFIL">
+    <div class="hx-intro">
+      <p class="hx-prompt">hen0xcc@research:~$ whoami</p>
+      <h1>hen0xcc</h1>
+      <p>Investigación y divulgación técnica de ciberseguridad ofensiva y defensiva.</p>
+    </div>
+  </Frame>
+  <Frame title="PROPÓSITO">
+    <div class="prose hx-prose">
+      <p>Este espacio reúne investigaciones, guías paso a paso y laboratorios propios. El objetivo es entender las técnicas de ataque, observar su telemetría, evaluar controles y compartir resultados reproducibles.</p>
+      <p><strong>Enfoque:</strong> Break it. Detect it. Defend it.</p>
+      <p>Las demostraciones se realizan en entornos propios o autorizados. Las hipótesis se distinguen de los hechos y las conclusiones se acompañan de evidencia y limitaciones.</p>
+      <p><strong>Contacto:</strong> <a href="https://www.linkedin.com/in/hen0xcc/" rel="me">https://www.linkedin.com/in/hen0xcc/</a>. </p>
+    </div></Frame>
+<Frame title="Mi fundamento" class="fundamento-frame">
+  <div class="prose hx-prose">
+    <p class="fundamento-versiculo">
+      “Señor, digno eres de recibir la gloria y la honra
+      y el poder; porque tú creaste todas las cosas,
+      y por tu voluntad existen y fueron creadas”
+    </p>
+
+    <p class="fundamento-cita">
+      — Apocalipsis 4:11
+    </p>
+  </div>
+</Frame>
+</Layout>
+
+<style is:global>
+  /* Recuadro Mi fundamento */
+  .fundamento-frame {
+    background: #0D151D;
+    border: 1px solid #304755;
+    border-radius: 12px;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  /* Interior del recuadro */
+  .fundamento-frame .frame-body {
+    border: none;
+    padding: 22px 28px;
+  }
+
+  /* Título */
+  .fundamento-frame .frame-title {
+    color: #63E99E;
+    background: #080D10;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-shadow: none;
+  }
+
+  /* Texto del versículo */
+  .fundamento-frame .fundamento-versiculo {
+    color: #9EFFC4;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    text-shadow: none;
+  }
+
+  /* Referencia bíblica */
+  .fundamento-frame .fundamento-cita {
+    color: #A7BCC7;
+    font-size: 0.82rem;
+    margin-top: 12px;
+    text-shadow: none;
+  }
+</style>

@@ -1,0 +1,31 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Frame from '../../components/Frame.astro';
+const areas = [
+  { name:'OFENSIVA', url:'/temas/ofensiva/', description:'Red Team, pentesting, explotación autorizada, malware y reversing.' },
+  { name:'DEFENSIVA', url:'/temas/defensiva/', description:'SOC, detección, threat hunting, DFIR, arquitectura y respuesta.' },
+  { name:'AI SECURITY', url:'/temas/ai-security/', description:'Modelos, agentes, seguridad de LLM y aplicaciones de IA.' },
+  { name:'LABS / POC', url:'/temas/labs/', description:'Laboratorios, experimentos, scripts y pruebas reproducibles.' },
+];
+---
+<Layout title="TEMAS" description="Explora las investigaciones de hen0xcc por disciplina.">
+  <Frame title="TEMAS // RESEARCH AREAS">
+    <p style="margin-bottom:18px;">Selecciona una disciplina. Un artículo puede aparecer en varias áreas mediante sus etiquetas.</p>
+    <nav class="menu-list" aria-label="Categorías de seguridad">
+      {areas.map((area,i) => (
+        <a class="menu-item" href={area.url}>
+          <span class="mi-marker" aria-hidden="true">[{String(i+1).padStart(2,'0')}]</span>
+          <span class="mi-title"><strong>{area.name}</strong> // {area.description}</span>
+          <span class="mi-arrow" aria-hidden="true">›</span>
+        </a>
+      ))}
+    </nav>
+  </Frame>
+  <Frame title="OTRAS SECCIONES">
+    <nav class="menu-list">
+      <a class="menu-item" href="/blog/"><span class="mi-marker">›</span><span class="mi-title">ARCHIVE // Todos los artículos</span></a>
+      <a class="menu-item" href="/hacker-culture/"><span class="mi-marker">›</span><span class="mi-title">HACKER HISTORY // Historia de la cultura hacker</span></a>
+      <a class="menu-item" href="/recursos/"><span class="mi-marker">›</span><span class="mi-title">RECURSOS // Fuentes y documentos históricos</span></a>
+    </nav>
+  </Frame>
+</Layout>

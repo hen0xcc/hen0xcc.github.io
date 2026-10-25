@@ -1,0 +1,26 @@
+/* HEN0XCC — estilos aditivos. Se cargan además de terminal.css y modern.css. */
+.hx-intro h1 { font-size: clamp(1.4rem, 4vw, 2.4rem); line-height: 1.2; margin: .6rem 0; letter-spacing: -.02em; }
+.hx-intro p { line-height: 1.65; max-width: 65ch; }
+.hx-prompt, .hx-kicker { opacity: .8; font-size: .88em; }
+.hx-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1.3rem 0 .2rem; }
+.hx-actions a { display: inline-flex; padding: .65rem .85rem; border: 1px solid currentColor; text-decoration: none; font-size: .85em; }
+.hx-actions a:hover, .hx-actions a:focus-visible { background: rgba(63,215,140,.12); }
+.hx-two-col { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:1rem; }
+.hx-two-col .frame { min-width:0; }
+.hx-stack { display:flex; flex-direction:column; gap:.7rem; margin:.9rem 0 1rem; }
+.hx-entry { display:flex; flex-direction:column; gap:.35rem; padding: .85rem 1rem; text-decoration:none; border:1px solid rgba(130,160,155,.32); background:rgba(85,130,121,.06); overflow-wrap:anywhere; }
+.hx-entry:hover, .hx-entry:focus-visible { border-color:currentColor; background:rgba(80,190,130,.10); }
+.hx-entry strong { color:var(--fg-bright, #fff); line-height:1.45; }
+.hx-entry span { opacity:.82; line-height:1.6; }
+.hx-entry small { opacity:.7; }
+.hx-more { margin-top:1.3rem; }
+.hx-lead { font-size:1.05rem; line-height:1.7; max-width:70ch; opacity:.9; }
+.hx-objective { border-left:3px solid currentColor; background:rgba(63,215,140,.08); padding:.85rem 1rem; line-height:1.6; }
+.hx-toc { border:1px solid rgba(130,160,155,.36); background:rgba(90,130,122,.07); padding:1rem 1.2rem; margin:1.5rem 0 2rem; }
+.hx-toc > strong { display:block; letter-spacing:.04em; margin-bottom:.5rem; }
+.hx-toc ol { padding-left:1.3rem; margin:.5rem 0 0; }
+.hx-toc li { margin:.35rem 0; line-height:1.55; }
+.hx-toc-sub { margin-left:1rem !important; }
+.hx-prose h2,.hx-prose h3 { scroll-margin-top:1.2rem; }
+.hx-prose pre { max-width:100%; overflow-x:auto; }
+@media (max-width: 740px) { .hx-two-col { grid-template-columns:1fr; } .hx-actions a { width:100%; justify-content:center; } }

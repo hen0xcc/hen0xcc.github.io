@@ -1,0 +1,31 @@
+---
+import { SITE_TITLE, SITE_TAGLINE, SITE_VERSION, SITE_BUILD_ID } from '../consts';
+import TerminalToggles from './TerminalToggles.astro';
+
+const buildDate = new Date().toLocaleDateString('es-MX', {
+  year: 'numeric', month: 'short', day: 'numeric'
+}).toUpperCase();
+const { pathname } = Astro.url;
+const current = (prefix: string) =>
+  pathname === prefix || pathname === prefix.replace(/\/$/, '') ||
+  (prefix !== '/' && pathname.startsWith(prefix)) ? 'page' : undefined;
+---
+<header class="t-header">
+  <a class="logo" href="/" aria-label="Inicio de hen0xcc">
+    <span class="logo-glyph" aria-hidden="true">&gt;_</span>
+    <span class="logo-name">{SITE_TITLE}</span>
+  </a>
+  <div class="h-info">
+    <div class="h-line h-line-top">{SITE_TAGLINE}</div>
+    <div class="h-line h-line-bottom">
+      <span>BUILD: {SITE_BUILD_ID} VER {SITE_VERSION}</span>
+      <span>{buildDate}</span>
+    </div>
+    <nav class="h-nav" aria-label="Navegación principal">
+      <a href="/blog/" aria-current={current('/blog/')}>&gt; BLOG</a>
+      <a href="/labs/" aria-current={current('/labs/')}>&gt; LABS</a>
+      <a href="/about/" aria-current={current('/about/')}>&gt; WHOAMI</a>
+      <TerminalToggles class="toggles--header" />
+    </nav>
+  </div>
+</header>

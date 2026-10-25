@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Frame from '../components/Frame.astro';
+const moments = [
+  { year:'1946', title:'MIT // Tech Model Railroad Club', text:'Fundación del TMRC en el MIT. Su experimentación con sistemas de control y computadoras se convirtió en una referencia temprana de la cultura hacker.', url:'https://tmrc.mit.edu/old/history/index.html', source:'Historia del TMRC' },
+  { year:'1981', title:'Chaos Computer Club', text:'Nace una comunidad que conecta experimentación técnica, privacidad, derechos digitales y debate público sobre las tecnologías.', url:'https://www.ccc.de/en/club', source:'Historia y misión del CCC' },
+  { year:'1985', title:'Phrack // La cultura hacker escrita', text:'La revista electrónica Phrack publica investigaciones y discusiones sobre sistemas, redes, telecomunicaciones y cultura hacker.', url:'https://phrack.org/', source:'Archivo de Phrack' },
+  { year:'1993', title:'DEF CON // El encuentro de la comunidad', text:'Comienza DEF CON en Las Vegas, un lugar de encuentro para la comunidad hacker y la investigación de seguridad.', url:'https://defcon.outel.org/defcon31/dc31-consolidated_page_split.html', source:'FAQ histórica de DEF CON (archivo)' },
+  { year:'2001', title:'OWASP // Seguridad del software abierta', text:'Comienza OWASP, impulsando educación, proyectos y conocimiento colaborativo sobre seguridad de las aplicaciones.', url:'https://owasp.org/about/', source:'Historia oficial de OWASP' },
+];
+---
+<Layout title="HACKER HISTORY" description="Una cronología de la historia y cultura hacker, con fuentes originales.">
+  <Frame title="HACKER HISTORY // EL ORIGEN">
+    <p>Antes de que la palabra «hacker» se asociara principalmente con ciberataques, también representaba curiosidad, experimentación y comprensión profunda de los sistemas.</p>
+    <p style="margin-top:12px;">Este archivo reúne algunos hitos de esa historia y enlaces a documentos para profundizar. No es una lista exhaustiva.</p>
+  </Frame>
+  <Frame title="CRONOLOGÍA // EXPLORAR">
+    <nav class="menu-list" aria-label="Hitos históricos">
+      {moments.map(m => (
+        <a class="menu-item" href={`#hist-${m.year}`}><span class="mi-marker">[{m.year}]</span><span class="mi-title">{m.title}</span><span class="mi-arrow">›</span></a>
+      ))}
+    </nav>
+  </Frame>
+  {moments.map(m => (
+    <Frame title={`${m.year} // ${m.title}`}>
+      <section id={`hist-${m.year}`} style="scroll-margin-top:18px;">
+        <p>{m.text}</p>
+        <p style="margin-top:14px;"><a href={m.url} target="_blank" rel="noopener noreferrer">› ABRIR FUENTE: {m.source} ↗</a></p>
+      </section>
+    </Frame>
+  ))}
+  <Frame title="SEGUIR EXPLORANDO">
+    <nav class="menu-list">
+      <a class="menu-item" href="/recursos/"><span class="mi-marker">›</span><span class="mi-title">RECURSOS Y ARCHIVOS HISTÓRICOS</span></a>
+      <a class="menu-item" href="/blog/"><span class="mi-marker">›</span><span class="mi-title">INVESTIGACIONES TÉCNICAS</span></a>
+    </nav>
+  </Frame>
+</Layout>
