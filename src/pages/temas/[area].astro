@@ -4,25 +4,59 @@ import Layout from '../../layouts/Layout.astro';
 import Frame from '../../components/Frame.astro';
 import PostItem from '../../components/PostItem.astro';
 
-const AREAS = [
-  { slug:'ofensiva', title:'SEGURIDAD OFENSIVA', description:'Red Team, explotación autorizada, malware, pentest y reversing', tags:['ofensiva','red-team','pentest','malware','malware-analysis','reversing','vulnerability-research'] },
-  { slug:'defensiva', title:'SEGURIDAD DEFENSIVA', description:'Blue Team, SOC, threat hunting, detección, respuesta y DFIR', tags:['defensiva','blue-team','soc','threat-hunting','detection-engineering','dfir','incident-response'] },
-  { slug:'ai-security', title:'AI SECURITY', description:'IA aplicada a seguridad, LLM, agentes e ingeniería de IA', tags:['ai-security','ia','llm-security','agents','agentic-ai'] },
-  { slug:'labs', title:'LABS / POC', description:'Laboratorios, proyectos y experimentos reproducibles', tags:['labs','lab','poc','hands-on','tooling'] },
-];
-
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const AREAS = [
+    {
+      slug: 'ofensiva',
+      title: 'SEGURIDAD OFENSIVA',
+      description: 'Red Team, explotación autorizada, malware, pentest y reversing',
+      tags: ['ofensiva', 'red-team', 'pentest', 'malware', 'malware-analysis', 'reversing', 'vulnerability-research']
+    },
+    {
+      slug: 'defensiva',
+      title: 'SEGURIDAD DEFENSIVA',
+      description: 'Blue Team, SOC, threat hunting, detección, respuesta y DFIR',
+      tags: ['defensiva', 'blue-team', 'soc', 'threat-hunting', 'detection-engineering', 'dfir', 'incident-response']
+    },
+    {
+      slug: 'ai-security',
+      title: 'AI SECURITY',
+      description: 'IA aplicada a seguridad, LLM y agentes',
+      tags: ['ai-security', 'ia', 'llm-security', 'agents', 'agentic-ai']
+    },
+    {
+      slug: 'labs',
+      title: 'LABS / POC',
+      description: 'Laboratorios y experimentos reproducibles',
+      tags: ['labs', 'lab', 'poc', 'hands-on', 'tooling']
+    }
+  ];
+
+  const posts = await getCollection(
+    'blog',
+    ({ data }) => !data.draft
+  );
+
   return AREAS.map(area => ({
     params: { area: area.slug },
     props: {
       areaInfo: area,
-      posts: posts.filter(post => post.data.tags.some(tag => area.tags.includes(tag.toLowerCase().trim())))
-        .sort((a,b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
-    },
+      posts: posts
+        .filter(post =>
+          post.data.tags.some(tag =>
+            area.tags.includes(tag.toLowerCase().trim())
+          )
+        )
+        .sort((a, b) =>
+          b.data.pubDate.valueOf() -
+          a.data.pubDate.valueOf()
+        )
+    }
   }));
 }
+
 const { areaInfo, posts } = Astro.props;
+---
 ---
 <Layout title={areaInfo.title} description={areaInfo.description}>
   <Frame title={`RESEARCH // ${areaInfo.title}`}>
