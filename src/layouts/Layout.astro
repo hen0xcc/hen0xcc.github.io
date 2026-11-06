@@ -191,5 +191,115 @@ const pageTitle = title ? `${title} // ${SITE_TITLE}` : SITE_TITLE;
         }
       });
     </script>
+  <!-- Estadisticas opcionales: no cargar Google Analytics sin consentimiento -->
+    <section id="analytics-consent" class="analytics-consent" aria-label="Preferencias de estadísticas" hidden>
+      <p class="analytics-consent__title">ESTADÍSTICAS DEL BLOG</p>
+      <p>
+        ¿Nos ayudas a conocer qué artículos se consultan? Si aceptas,
+        usaremos Google Analytics para medir visitas e interacción.
+        Puedes rechazarlo y seguir leyendo sin problema.
+        <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Cómo utiliza Google los datos</a>.
+      </p>
+      <div class="analytics-consent__actions">
+        <button type="button" id="analytics-reject">Rechazar</button>
+        <button type="button" id="analytics-accept">Aceptar estadísticas</button>
+      </div>
+    </section>
+    <button type="button" id="analytics-settings" class="analytics-settings" hidden>
+      Preferencias de estadísticas
+    </button>
+
+    <style is:global>
+      .analytics-consent[hidden], .analytics-settings[hidden] { display: none !important; }
+      .analytics-consent {
+        position: fixed; z-index: 9999; bottom: 16px; left: 16px;
+        width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+        overflow: auto; box-sizing: border-box; padding: 18px;
+        border: 1px solid #b89252; background: #171b1a;
+        color: #f5e6c3; box-shadow: 0 8px 30px #0009;
+        font: 14px/1.55 system-ui, sans-serif;
+      }
+      .analytics-consent__title { font-weight: 700; letter-spacing: .06em; margin: 0 0 6px; }
+      .analytics-consent p { margin: 0 0 12px; }
+      .analytics-consent a { color: #ffcf76; text-decoration: underline; }
+      .analytics-consent__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+      .analytics-consent button, .analytics-settings {
+        cursor: pointer; border: 1px solid #c4a063; border-radius: 3px;
+        padding: 8px 12px; color: #f5e6c3; background: #30332b;
+        font: inherit;
+      }
+      #analytics-accept { background: #705527; }
+      .analytics-consent button:focus-visible, .analytics-settings:focus-visible {
+        outline: 2px solid #ffcf76; outline-offset: 2px;
+      }
+      .analytics-settings {
+        position: fixed; z-index: 9998; bottom: 10px; right: 10px;
+        font: 12px/1.3 system-ui, sans-serif;
+      }
+      @media (max-width: 640px) {
+        .analytics-consent { left: 8px; bottom: 8px; width: calc(100vw - 16px); }
+      }
+    </style>
+    <script is:inline>
+      (function () {
+        var KEY = 'hen0xcc_analytics_consent_v1';
+        var GA_ID = 'G-BK8WL5N1X9';
+        var panel = document.getElementById('analytics-consent');
+        var settings = document.getElementById('analytics-settings');
+        var accept = document.getElementById('analytics-accept');
+        var reject = document.getElementById('analytics-reject');
+        if (!panel || !settings || !accept || !reject) return;
+
+        var choice = null;
+        try { choice = localStorage.getItem(KEY); } catch (e) {}
+        var loaded = false;
+        function loadAnalytics() {
+          if (loaded) return;
+          loaded = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', GA_ID);
+          var tag = document.createElement('script');
+          tag.async = true;
+          tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+          document.head.appendChild(tag);
+        }
+        function display() {
+          panel.hidden = choice === 'accepted' || choice === 'rejected';
+          settings.hidden = !panel.hidden;
+        }
+        function forgetAnalyticsCookies() {
+          document.cookie.split(';').forEach(function (part) {
+            var name = part.split('=')[0].trim();
+            if (/^(_ga($|_)|_gid$|_gat($|_))/.test(name)) {
+              document.cookie = name + '=; Max-Age=0; path=/; SameSite=Lax';
+            }
+          });
+        }
+        accept.addEventListener('click', function () {
+          choice = 'accepted';
+          try { localStorage.setItem(KEY, choice); } catch (e) {}
+          display();
+          loadAnalytics();
+        });
+        reject.addEventListener('click', function () {
+          var wasLoaded = loaded;
+          choice = 'rejected';
+          try { localStorage.setItem(KEY, choice); } catch (e) {}
+          display();
+          forgetAnalyticsCookies();
+          // If GA was loaded in this tab, reload to stop further collection.
+          if (wasLoaded) window.location.reload();
+        });
+        settings.addEventListener('click', function () {
+          panel.hidden = false;
+          settings.hidden = true;
+          accept.focus();
+        });
+        display();
+        if (choice === 'accepted') loadAnalytics();
+      })();
+    </script>
   </body>
 </html>
